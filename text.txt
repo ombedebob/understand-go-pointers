@@ -1,0 +1,33 @@
+NOTE: you cannot take the address of a literal or a constant, as the following code snippet 
+shows:
+const i = 5
+ptr := &i //error: cannot take the address of i
+ptr2 := &10 //error: cannot take the address of 10
+
+So Go, like most other low level languages as C, C++ and D, has the concept of pointers. 
+But calculations with pointers, which often lead to erroneous memory access in C and thus fatal crashes of programs, are not allowed in Go, making the language memory-safe.
+
+Go pointers resemble more the references from languages like Java, C# and VB.NET
+
+So: c = *p++ is invalid Go code!!
+
+One advantage of pointers is that you can pass a reference to a variable (for example as a parameter 
+to a function), instead of passing a copy of the variable.
+
+Pointers are cheap to pass, only 4 or 8 bytes. When the program has to work with variables which occupy a lot of memory, or many variables, or both, working with pointers can reduce memory usage and increase efficiency.
+
+Pointed variables also persist in memory, for as long as there is at least 1 pointer pointing to them, so their 
+lifetime is independent of the scope in which they were created.
+
+On the other hand (but much less likely), because a pointer causes what is called an indirection 
+(a shift in the processing to another address), prohibitive use of them could cause performance 
+decrease
+
+Pointers can also point to other pointers, and this nesting can go arbitrarily deep, so you can 
+have multiple levels of indirection, but in most cases this will not contribute to the clarity of your 
+code.
+
+As we will see, in many cases Go makes it easier for the programmer and will hide indirection like 
+for example performing an automatic dereference.
+
+A nil pointer dereference is illegal and makes a program crash:
